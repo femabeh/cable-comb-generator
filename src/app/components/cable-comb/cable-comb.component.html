@@ -1,0 +1,77 @@
+<div class="root">
+
+  <aside class="panel">
+    <h2>Cable Comb Generator</h2>
+
+    <section class="group">
+      <h3>Kabel</h3>
+      <label class="row">
+        <span>Kabeldurchmesser</span>
+        <span class="val">{{ params.cableDiameter | number:'1.1-1' }} mm</span>
+        <input type="range" min="1" max="10" step="0.1"
+               [(ngModel)]="params.cableDiameter" (ngModelChange)="onChange()" />
+      </label>
+      <label class="row">
+        <span>Anzahl Slots</span>
+        <span class="val">{{ params.slots }}</span>
+        <input type="range" min="1" max="16" step="1"
+               [(ngModel)]="params.slots" (ngModelChange)="onChange()" />
+      </label>
+    </section>
+
+    <section class="group">
+      <h3>Körper</h3>
+      <label class="row">
+        <span>Höhe</span>
+        <span class="val">{{ params.clipHeight | number:'1.1-1' }} mm</span>
+        <input type="range" min="2" max="20" step="0.5"
+               [(ngModel)]="params.clipHeight" (ngModelChange)="onChange()" />
+      </label>
+      <label class="row">
+        <span>Tiefe (Dicke)</span>
+        <span class="val">{{ params.thickness | number:'1.1-1' }} mm</span>
+        <input type="range" min="1" max="8" step="0.1"
+               [(ngModel)]="params.thickness" (ngModelChange)="onChange()" />
+      </label>
+      <label class="row">
+        <span>Wandstärke</span>
+        <span class="val">{{ params.wallThickness | number:'1.1-1' }} mm</span>
+        <input type="range" min="0.5" max="3" step="0.1"
+               [(ngModel)]="params.wallThickness" (ngModelChange)="onChange()" />
+      </label>
+    </section>
+
+    <section class="group">
+      <h3>Lippe (Kabelretention)</h3>
+      <label class="row">
+        <span>Lippen-Einzug</span>
+        <span class="val">{{ params.lipInset | number:'1.0-0' | percent }}</span>
+        <input type="range" min="0" max="0.5" step="0.05"
+               [(ngModel)]="params.lipInset" (ngModelChange)="onChange()" />
+      </label>
+      <p class="hint">0 = keine Retention · 50 % = starker Snap</p>
+      <label class="row">
+        <span>Lippen-Höhe</span>
+        <span class="val">{{ params.lipHeight | number:'1.1-1' }} mm</span>
+        <input type="range" min="0.2" max="3" step="0.1"
+               [(ngModel)]="params.lipHeight" (ngModelChange)="onChange()" />
+      </label>
+      <p class="hint">Größer = sanfterer Eingang</p>
+    </section>
+
+    <div class="dims">
+      <div class="dim"><span>Breite</span><strong>{{ dims.width | number:'1.1-1' }} mm</strong></div>
+      <div class="dim"><span>Tiefe</span><strong>{{ dims.depth | number:'1.1-1' }} mm</strong></div>
+      <div class="dim"><span>Höhe</span><strong>{{ dims.height | number:'1.1-1' }} mm</strong></div>
+      <div class="dim"><span>Slots</span><strong>{{ params.slots }}</strong></div>
+    </div>
+
+    <button class="dl" (click)="download()">STL herunterladen</button>
+    <button class="rst" (click)="resetCamera()">Ansicht zurücksetzen</button>
+  </aside>
+
+  <div class="view" #wrap>
+    <canvas #canvas></canvas>
+    <span class="hint3d">Drehen: Maus ziehen · Zoom: Scrollrad</span>
+  </div>
+</div>
